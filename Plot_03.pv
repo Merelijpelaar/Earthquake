@@ -1,0 +1,13 @@
+import json
+import matplotlib.pyplot as plt
+
+with open('Earthquake.json') as infile:
+    latitudeData = json.load(infile)
+len(latitudeData)
+latitudeData[0]
+
+listOfNumbers = [l['latitude'] for l in latitudeData]
+plt.plot(listOfNumbers)
+plt.show()
+plt.hist(listOfNumbers)
+Plt.show()

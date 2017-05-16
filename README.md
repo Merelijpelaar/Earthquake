@@ -1,5 +1,5 @@
 # Earthquake
 
-A map of the earthquakes of April
+This is a map of the earthquakes of April.
+You can see the magnitude
 
-...

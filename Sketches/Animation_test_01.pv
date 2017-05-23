@@ -1,0 +1,13 @@
+from math import sin, radians
+
+size(512, 512)
+speed(50)
+
+def draw():
+    background(2, 1, 0.5)
+    with pen(1),stroke(0.2, 0.9, 0.9),nofill():
+        for i in range(100):
+            rotate(5)
+            v = sin(radians(FRAME)) * i * 50
+            with bezier(100, 100):
+                curveto(v, -v, v, v, 150, 150)

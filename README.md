@@ -5,3 +5,4 @@ On the map you see the earthquake imagined as circles.
 How bigger the circle how larger the magnitude of the earthquake.
 
 
+https://github.com/Merelijpelaar/Earthquake/blob/master/Worldmap.png

@@ -1,0 +1,84 @@
+import json
+import math
+import time, datetime
+
+
+
+			
+
+earthquakes = None
+show_before = -1
+ 
+def setup(): 
+	size(750, 490)
+	
+	global earthquakes
+	
+	with open('Earthquake.json') as infile:
+		earthquakes = json.load(infile)
+	print len(earthquakes)
+	print earthquakes[0]
+	
+	global show_before
+	current_day = "2017-04-01 00:00:00"
+	show_before = time.mktime(datetime.datetime.strptime(current_day, "%Y-%m-%d %H:%M:%S").timetuple())
+
+
+	
+
+
+def mapValue(value, fromMin, fromMax, toMin, toMax):
+	fromSpan = fromMax - fromMin
+	toSpan = toMax - toMin
+	valueScaled = float(value - fromMin) / float(fromSpan)
+	return toMin + (valueScaled * toSpan)
+
+def xOfDot(lon):
+	return mapValue(lon, -175, 290, 10, 933)
+	
+def yOfDot(lat):
+	return mapValue(lat, -145, 60, 550, 90)
+
+
+
+def draw():
+	
+	global show_before
+	background('world_01.ai')
+	
+	
+	
+	time_pretty = datetime.datetime.fromtimestamp(int(show_before)).strftime('%Y/%m-%d %H:%M:%S')
+
+	fill(0)
+	text(str(time_pretty), 20, 20)
+		
+	for quake in earthquakes: # convert lat / lon\
+		seconds_quake = time.mktime(datetime.datetime.strptime(quake['time'][:-5].replace("T", " "), "%Y-%m-%d %H:%M:%S").timetuple())
+		
+		if (show_before - 60 * 60 * 24) < seconds_quake and seconds_quake < show_before:
+			x = xOfDot(quake['longitude'])
+			y = yOfDot(quake['latitude'])
+			diameter = math.pow(quake['mag'],1.5)
+			green = 1 - quake['mag'] /6
+		# 	stroke(1, green, 0)
+			secs = (show_before - 60 * 60 * 24) - seconds_quake
+# 			print secs / (60 * 60 * 24)
+			transparantie = 1.0 - (1.0 + (secs / (60 *  60 * 24))) 
+# 			print transparantie
+			fill(1, green, 0, transparantie)
+		# 	nofill()
+			oval(x, y, diameter, diameter)
+			
+	# update for next frame # increment a day each frame
+	# show_before += 60 * 60 * 24
+	show_before += 60 * 60
+	
+		
+
+
+		
+	
+	
+	
+

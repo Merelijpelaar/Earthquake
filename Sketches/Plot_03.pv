@@ -2,12 +2,18 @@ import json
 import matplotlib.pyplot as plt
 
 with open('Earthquake.json') as infile:
-    latitudeData = json.load(infile)
-len(latitudeData)
-latitudeData[0]
+    magData = json.load(infile)
+len(magData)
+magData[0]
 
-listOfNumbers = [l['latitude'] for l in latitudeData]
-plt.plot(listOfNumbers)
-plt.show()
-plt.hist(listOfNumbers)
-Plt.show()
+y = 0
+for mag in magData[:50]:
+    # ^het getal geeft aan hoeveel je in de graph wil laten zien
+    y = y + 24 
+    # ^de tussenruimte van de balkjes
+    barwidth =  mag ['mag'] / 0.2
+    # ^letterlijk bar width van je latitude
+    rect(450, y - 24, barwidth, 18)
+    text(mag['place'], 10, y)
+    fill(0.8, 0, 0)
+    fill(0, 0.8, 0)
